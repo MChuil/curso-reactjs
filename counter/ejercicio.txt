@@ -1,0 +1,6 @@
+
+1. Crear un nuevo componente 'CounterApp'
+2. El contenido sera:
+        <h1>CounterApp</h1>
+        <h3>{ value }</h3>
+3. 'value' es una props enviada desde el padre(main.jsx) y debe ser numerica y obligatoria (PropTypes)

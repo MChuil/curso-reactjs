@@ -1,0 +1,17 @@
+html, body{
+    background-color: rgba(5, 170, 247, 0.735);
+    color: #fff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5rem;
+    padding: 70px;
+}
+
+button{
+    padding: 15px;
+    background-color: indigo;
+    color: #fff;
+    border-radius: 10px;
+    border:none;
+    text-align: center;
+    min-width: 120px;
+}

@@ -1,22 +1,21 @@
-// importar, exportar
-import  { heroes, villanos }  from './data/heroes';
+// Operador condicional ternario
 
-console.log(heroes)
-console.log(villanos)
-
-const buscarHeroe = (id) =>{
-    return heroes.find((heroe) => {
-        if(heroe.id === id){
-            return heroe;
-        }
-    })
+const edad = 18;
+let mensaje = ''
+if(edad>17){
+    mensaje = 'Mayor de edad';
+}else{
+    mensaje = 'Menor de edad';
 }
 
-const buscarHeroe2 = (id) => heroes.find((heroe) => heroe.id === id)
+const message = (edad<18) ? 'Mayor de edad' : 'Menor de edad';
 
-console.log(buscarHeroe(5))
-console.log(buscarHeroe2(6))
+console.log(mensaje)
 
+console.log(message)
 
+const login = false;
 
-
+// const msj = (login) ? 'Autorizado' : null;
+const msj = (login) && 'Autorizado';
+console.log(msj);
