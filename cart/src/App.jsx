@@ -1,40 +1,22 @@
-import { useState, useEffect } from 'react' 
+
 import Header from './components/Header'
 import Curso from './components/Curso'
 import './app.css'
-import db from './data/data'
+import useCart from './hooks/useCart'
 
 const App = () => {
-    const [ data, setData] = useState(db);
-
-
-   /**
-    *  Statements
-    *   instrucción que permite hacer algo: crear una variable, codigo condicional if, error throw, ciclo for
-    * 
-    *   Expressions
-    *   Es algo que produce un valor: ternario, array methods
-    * 
-    *   const arrayNew = array.map()
-    */
-
-    
-    console.log(data)
-    // useEffect( () => {
-    //     setData(db)
-    // }, [])
-
-    /**
-     * sintaxis use Efect
-     *      import { useEffect} from 'react'
-     * 
-     *      useEffect( ()=> {
-     *              instrucción
-     *      }, [])
-     */
+    const { data, cart, addToCart, deleteItem, incrementQuantity, decrementQuantity, clearCart, isEmpty, totalCart } = useCart()
     return (
         <>
-            <Header />
+            <Header 
+                cart = { cart }
+                deleteItem = {deleteItem}
+                incrementQuantity = { incrementQuantity }
+                decrementQuantity = { decrementQuantity }
+                clearCart = { clearCart }
+                isEmpty = {isEmpty}
+                totalCart = {totalCart}
+            />
 
             <div id="hero">
                 <div className="container">
@@ -80,6 +62,7 @@ const App = () => {
                             <Curso
                                 key = { curso.id }
                                 curso = { curso }
+                                addToCart = { addToCart }
                             />
                         )
                     )}
@@ -108,7 +91,6 @@ const App = () => {
                     </div>
                 </div>
             </footer>
-
         </>
     )
 }
@@ -118,3 +100,28 @@ export default App
 
 // 1 ser reu-utilizado
 // 2 separar funcionalidad
+
+
+
+/**
+    *  Statements
+    *   instrucción que permite hacer algo: crear una variable, codigo condicional if, error throw, ciclo for
+    * 
+    *   Expressions
+    *   Es algo que produce un valor: ternario, array methods
+    * 
+    *   const arrayNew = array.map()
+    */
+
+    // useEffect( () => {
+    //     setData(db)
+    // }, [])
+
+    /**
+     * sintaxis use Efect
+     *      import { useEffect} from 'react'
+     * 
+     *      useEffect( ()=> {
+     *              instrucción
+     *      }, [])
+     */

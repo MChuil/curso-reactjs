@@ -132,6 +132,10 @@ ul {
 
 #lista-cursos .row {
     margin-bottom:20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
 }
 .agregar-carrito {
     margin:10px 0;
@@ -149,12 +153,20 @@ ul {
 }
 .info-card  {
     padding: 10px 20px;
+    height: 300px;
 }
 
 .info-card p, 
 .card h4 {
     margin-bottom: 5px;
 }
+.info-card p{
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .info-card .precio {
     text-decoration: line-through;
     font-size: 18px;
@@ -188,4 +200,14 @@ text-decoration: none;
 }
 a{
     color: #283F5E;
+}
+
+.btn{
+    background-color: #283F5E;
+    color: #fff;
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
 }

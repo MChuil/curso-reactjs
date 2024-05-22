@@ -1,5 +1,6 @@
-const Curso = ( { curso }  ) => {
-   const { title, price, img, description } = curso
+const Curso = ( { curso,  addToCart } ) => {
+    const { id, title, price, img, description } = curso
+
     return (
         <>
             <div className="four columns">
@@ -9,8 +10,9 @@ const Curso = ( { curso }  ) => {
                         <h4>{ title }</h4>
                         <p>{ description }</p>
                         <img src="img/estrellas.png" />
-                        <p className="precio">$200  <span className="u-pull-right ">{ price }</span></p>
-                        <a href="#" className="u-full-width button-primary button input agregar-carrito" data-id="1">Agregar Al Carrito</a>
+                        <p className="precio">$200  <span className="u-pull-right ">${ price }</span></p>
+                        <button className="u-full-width button-primary button input agregar-carrito" data-id="1" 
+                        onClick={ () => addToCart(curso) }>Agregar Al Carrito</button>
                     </div>
                 </div>
             </div>
