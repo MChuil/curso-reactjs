@@ -1,4 +1,4 @@
-import type { TCursoCarrito, TCurso}from '../types'
+import type { TCurso}from '../types'
 import type { CartActions } from '../reducers/cartReducer'
 
 type CursoProps = {

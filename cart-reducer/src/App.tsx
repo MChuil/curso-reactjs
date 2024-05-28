@@ -1,27 +1,24 @@
-import { useReducer } from 'react'
+import { useReducer, useEffect } from 'react'
 import Header from './components/Header'
 import Curso from './components/Curso'
 import './app.css'
-import useCart from './hooks/useCart'
 import { cartReducer, initialState } from './reducers/cartReducer'
 
 const App = () => {
-    const { cart, deleteItem, incrementQuantity, decrementQuantity, clearCart, isEmpty, totalCart } = useCart()
 
-    const [state, dispatch] = useReducer(cartReducer,initialState)
 
-    console.log(state)
+    const [state, dispatch] = useReducer(cartReducer, initialState)
+
+    useEffect(()=>{
+        localStorage.setItem('cart', JSON.stringify(state.cart)) //pasamos de array de objetos a string
+    }, [state.cart])
+
 
     return (
         <>
             <Header 
-                cart = { cart }
-                deleteItem = {deleteItem}
-                incrementQuantity = { incrementQuantity }
-                decrementQuantity = { decrementQuantity }
-                clearCart = { clearCart }
-                isEmpty = {isEmpty}
-                totalCart = {totalCart}
+                cart = { state.cart }
+                dispatch = {dispatch}
             />
 
             <div id="hero">

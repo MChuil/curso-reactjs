@@ -1,16 +1,17 @@
+import { useMemo } from 'react'
 import type { TCursoCarrito} from '../types'
+import { CartActions } from '../reducers/cartReducer'
 
 type headerProps = {
     cart: TCursoCarrito[]
-    deleteItem: (id: number) => void
-    incrementQuantity: (id: number) => void
-    decrementQuantity: (id: number) => void
-    clearCart: () => void
-    isEmpty: boolean
-    totalCart: ()=>number
+    dispatch: React.Dispatch<CartActions>
 }
 
-const Header = ({ cart, deleteItem, incrementQuantity, decrementQuantity, clearCart, isEmpty, totalCart } : headerProps) => {
+const Header = ({ cart, dispatch } : headerProps) => {
+
+    // State derivado
+    const isEmpty = useMemo(()=> cart.length === 0, [cart])
+    const totalCart = () => cart.reduce((total, item)=> total + (item.price * item.quantity), 0)
 
     return (
         <>
@@ -47,11 +48,11 @@ const Header = ({ cart, deleteItem, incrementQuantity, decrementQuantity, clearC
                                                                     <td>{item.title}</td>
                                                                     <td>${item.price}</td>
                                                                     <td>
-                                                                        <a className="btn" onClick={()=> incrementQuantity(item.id)}>+</a>
+                                                                        <a className="btn" onClick={()=> dispatch({type: 'incrementQuantity', payload:{id: item.id}})}>+</a>
                                                                         {item.quantity}
-                                                                        <a className="btn" onClick={()=> decrementQuantity(item.id)}>-</a>
+                                                                        <a className="btn" onClick={()=> dispatch({type: 'decrementQuantity', payload: {id: item.id}})}>-</a>
                                                                     </td>
-                                                                    <td><button onClick={() => deleteItem(item.id)} className="delete">X</button></td>
+                                                                    <td><button onClick={() => dispatch({type:'deleteItem', payload:{id: item.id}})} className="delete">X</button></td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
@@ -66,7 +67,7 @@ const Header = ({ cart, deleteItem, incrementQuantity, decrementQuantity, clearC
                                                         </tfoot>
                                                     </table>
                                                 )}
-                                                <a href="#" id="vaciar-carrito" className="button u-full-width" onClick={clearCart}>Vaciar Carrito</a>
+                                                <a href="#" id="vaciar-carrito" className="button u-full-width" onClick={()=>dispatch({type:'clearCart'})}>Vaciar Carrito</a>
                                         </div>
                                 </li>
                             </ul>

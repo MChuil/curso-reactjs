@@ -3,7 +3,7 @@ import { TCursoCarrito, TCurso } from "../types";
 
 //Acciones
 export type CartActions =
-    {type: 'addToCart', payload: {item: TCursoCarrito}} |
+    {type: 'addToCart', payload: {item: TCurso}} |
     {type: 'deleteItem', payload: {id: number}} |
     {type: 'incrementQuantity', payload: {id: number}} |
     {type: 'decrementQuantity', payload: {id: number}} |
@@ -13,13 +13,26 @@ export type CartState = {
     data: TCurso[],
     cart: TCursoCarrito[]
 }
+
+//validar que localStorage tenga data
+const init = () : TCursoCarrito[] =>{
+    const localStorageCart = localStorage.getItem('cart')
+    if(localStorageCart){  //si hay algo
+        return JSON.parse(localStorageCart); //pasar de string a array de objetos
+    }else{ //si esta vacio
+        return []
+    }
+}
+
 //State Inicial
 export const initialState: CartState = {
     data: db,
-    cart: []
+    cart: init()
 }
 
 
+const MAX_ITEM = 6
+const MIN_ITEM = 1
 //Reducer
 export const cartReducer = (
     state: CartState = initialState,
@@ -42,28 +55,51 @@ export const cartReducer = (
         }
 
         if(action.type === 'deleteItem'){
+            const updateCart = state.cart.filter(item => item.id !== action.payload.id)
+            
             return {
-                ...state
+                ...state,
+                cart: updateCart
             }
         }
 
         if(action.type === 'incrementQuantity'){
+            const updateCart = state.cart.map( item => {
+                if(item.id === action.payload.id && item.quantity < MAX_ITEM){
+                    return {
+                        ...item,
+                        quantity: item.quantity + 1
+                    } 
+                }
+                return item
+            })
             return {
-                ...state
+                ...state,
+                cart: updateCart
             }
         }
 
 
         if(action.type === 'decrementQuantity'){
-
+            const updateCart = state.cart.map( item => {
+                if(item.id === action.payload.id && item.quantity > MIN_ITEM){
+                    return {
+                        ...item,
+                        quantity: item.quantity - 1
+                    } 
+                }
+                return item
+            })
             return {
-                ...state
+                ...state,
+                cart: updateCart
             }
         }
 
         if(action.type === 'clearCart'){
             return {
-                ...state
+                ...state,
+                cart : []
             }
         }
 
